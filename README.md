@@ -6,8 +6,8 @@
 (因为某些虚拟主机不支持伪静态，所以我直接用的目录)
 
 ## 安装要求
-php 版本 > 5.3 
-pdo 或 sqlite3 或 mysqli 模块
+ php 版本 > 5.3 
+ pdo 或 sqlite3 或 mysqli 模块
 
 
 ## 安装步骤
@@ -19,7 +19,7 @@ pdo 或 sqlite3 或 mysqli 模块
 ## 演示
 
 demo:[https://demo.nworm.cf/danmu/](https://demo.nworm.cf/danmu/)
-比如:
+ 比如:
  - https://demo.nworm.cf/danmu/v3/?id=23333
  - https://demo.nworm.cf/danmu/v3/bilibili/?cid=100577238  (B站弹幕暂时还不支持用aid)
 

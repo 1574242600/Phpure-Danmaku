@@ -20,7 +20,7 @@ pdo 或 sqlite3 或 mysqli 模块
 
 demo:[https://demo.nworm.cf/danmu/](https://demo.nworm.cf/danmu/)  
 html:[http://xg.nworm.cf/my/bili-gat/video.php?sid=2586](http://xg.nworm.cf/my/bili-gat/video.php?sid=2586)  
-演示用的就是虚拟主机,请有善一点（每天1GB流量）  视频是b站的 
+演示用的就是虚拟主机,请友善一点（每天1GB流量）  视频是b站的 
 
 
 比如:

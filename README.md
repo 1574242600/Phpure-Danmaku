@@ -20,13 +20,13 @@ pdo 或 sqlite3 或 mysqli 模块
 
 demo:[https://demo.nworm.cf/danmu/](https://demo.nworm.cf/danmu/)
 比如:
-https://demo.nworm.cf/danmu/v3/?id=23333
-https://demo.nworm.cf/danmu/v3/bilibili/?cid=100577238  (B站弹幕暂时还不支持用aid)
+ - https://demo.nworm.cf/danmu/v3/?id=23333
+ - https://demo.nworm.cf/danmu/v3/bilibili/?cid=100577238  (B站弹幕暂时还不支持用aid)
 
 ## 注意事项
-1.用了cdn，请一定要把config.inc.php中的is_cdn改为1
-2.如果要限制跨域，请修改config.inc.php的允许url,如果此项为空，则不限制跨的域
-3.发送频率默认限制为60秒内5条 ，如果要修改，算了，改哪个文件都猜的到了
+1. 用了cdn，请一定要把config.inc.php中的is_cdn改为1
+2. 如果要限制跨域，请修改config.inc.php的允许url,如果此项为空，则不限制跨的域
+3. 发送频率默认限制为60秒内5条 ，如果要修改，算了，改哪个文件都猜的到了
 
 
 ## 版权说明

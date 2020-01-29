@@ -25,7 +25,10 @@ html:[http://xg.nworm.cf/my/bili-gat/video.php?sid=2586](http://xg.nworm.cf/my/b
 
 比如:
  - https://demo.nworm.cf/danmu/v3/?id=23333
- - https://demo.nworm.cf/danmu/v3/bilibili/?cid=100577238  (B站弹幕暂时还不支持用aid)
+ - https://demo.nworm.cf/danmu/v3/bilibili/?cid=100577238
+ - https://demo.nworm.cf/danmu/v3/bilibili/?av=170001&p=2
+ av，cid同时存在时取cid
+
 
 ## 注意事项
 1. 用了cdn，请一定要把config.inc.php中的is_cdn改为1

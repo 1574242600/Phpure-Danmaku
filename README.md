@@ -8,9 +8,10 @@
 ## 安装要求
 php 版本 > 5.3  
 
-pdo 或 sqlite3 或 mysqli 模块  
+pdo 或 sqlite3 或 mysqli 模块
+如果要用 bilibili 弹幕 还需curl模块
 
-## 安装步骤
+# 安装步骤
  1. 上传到网站目录
  2. 用浏览器访问
  3. 按照提示安装（别吐槽前端）
@@ -40,4 +41,4 @@ html:[http://xg.nworm.cf/my/bili-gat/video.php?sid=2586](http://xg.nworm.cf/my/b
 该项目签署了MIT 授权许可，详情请参阅 LICENSE
 
 ## 管理面板
-我觉得我不会写
+咕.....咕...咕咕

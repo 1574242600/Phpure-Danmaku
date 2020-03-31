@@ -46,11 +46,6 @@ if (class_exists('SQLite3')){
 //----------------------------------------------------
 $query = <<<EOF
 
-SET NAMES utf8;
-SET time_zone = '+08:00';
-SET foreign_key_checks = 0;
-SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
-
 CREATE TABLE IF NOT EXISTS `danmaku_ip` (
   `ip` varchar(12) NOT NULL COMMENT '发送弹幕的IP地址',
   `c` int(1) NOT NULL DEFAULT '1' COMMENT '规定时间内的发送次数',
@@ -116,6 +111,9 @@ function zq_mysql($type){
             
             $sql = new PDO("mysql:host=$hostname;dbname=$db;", $username, $password);
             $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    $sql->exec("SET time_zone = '+08:00';");
+	    $sql->exec("SET NAMES utf8;");
+	    $sql->exec("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';");
             $sql->exec($query);
             $sql = null;
         } catch (PDOException $e) {
@@ -125,10 +123,13 @@ function zq_mysql($type){
     
     if ($type == 'mysqli'){
         $sql = new mysqli($hostname, $username, $password, $db);
+	
         if ($sql->connect_error) {
             die("连接失败: " . $sql->connect_error);
         }
-        
+	$sql->set_charset('utf8');
+        $sql->query("SET time_zone = '+08:00';");
+	$sql->query("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';");
         if ($sql->query($query) !== TRUE) {
             die("创建数据表错误: " . $sql->error);
         }

@@ -23,12 +23,13 @@ demo:[https://demo.nworm.cf/danmu/](https://demo.nworm.cf/danmu/)
 html:[http://xg.nworm.cf/my/bili-gat/video.php?sid=2586](http://xg.nworm.cf/my/bili-gat/video.php?sid=2586)  
 演示用的就是虚拟主机,请友善一点（每天1GB流量）  视频是b站的 
 
-
 比如:
  - https://demo.nworm.cf/danmu/v3/?id=23333
  - https://demo.nworm.cf/danmu/v3/bilibili/?cid=100577238
  - https://demo.nworm.cf/danmu/v3/bilibili/?av=170001&p=2
- av，cid同时存在时取cid
+ - https://demo.nworm.cf/danmu/v3/bilibili/?bv=BV17x411w7KC     (av170001)
+ - https://demo.nworm.cf/danmu/v3/bilibili/?bv=BV17x411w7KC&p=3
+ 优先级 cid > bv > av
 
 
 ## 注意事项

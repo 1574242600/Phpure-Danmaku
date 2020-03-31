@@ -1,6 +1,6 @@
 <?php
 //ini_set("display_errors", "On");
-//error_reporting(E_ALL);
+error_reporting(0);
 
 //https://api.bilibili.com/x/v2/dm/history?type=1&date=xxxx-xx-xx&oid=xxxxx  历史弹幕接口，需要cookies
 
@@ -14,7 +14,7 @@ preg_match("/^[0-9]+$/", $av) ?: $av = 0;
 preg_match("/^[0-9]+$/", $p) ?: $p = 1;
 preg_match("/^[0-9]+$/", $cid) ?: $cid = 0;
 
-if ($cid > 0 or ($cid > 0 and $av > 0)) {
+if ($cid > 0) {
     $xml = curl_get('https://api.bilibili.com/x/v1/dm/list.so?oid=' . $cid);
     echo xml_json($xml);
 } elseif ($av > 0 and $cid <= 0) {

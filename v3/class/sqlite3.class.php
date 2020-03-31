@@ -73,19 +73,48 @@ class sql {
     public static function 更新_发送弹幕次数($ip,$time = 'time'){
         try {
             $query = "UPDATE danmaku_ip SET c=c+1,time=$time WHERE ip = :ip";
-            if (is_int($time)) $query = "UPDATE danmaku_ip SET c=1,time=$time WHERE ip = :ip"; 
+            if (is_int($time)) $query = "UPDATE danmaku_ip SET c=1,time=$time WHERE ip = :ip";
             $stmt = self::$sql->prepare($query);
-            
+
             $stmt->bindValue(':ip', $ip);
             $stmt->execute();
         } catch (Exception $e) {
-            showmessage(-1,'数据库错误:'.$e->getMessage());
+            showmessage(-1, '数据库错误:' . $e->getMessage());
         }
     }
-    
-    private static function fetchAll($obj){
+
+
+    public static function 查询_管理员($id)
+    {
+        try {
+            $stmt = self::$sql->prepare("SELECT * FROM danmaku_admin WHERE id = :id");
+            $stmt->bindValue(':id', $id);
+            $data = $stmt->execute();
+            $data = self::fetchAll($data);
+            return $data;
+        } catch (Exception $e) {
+            showmessage(-1, $e->getMessage());
+        }
+    }
+
+    public static function 查询_管理员登录($name)
+    {
+        try {
+            $stmt = self::$sql->prepare("SELECT * FROM danmaku_admin WHERE name = :name");
+            $stmt->bindValue(':name', $name);
+            $data = $stmt->execute();
+            $data = self::fetchAll($data);
+            return $data;
+        } catch (Exception $e) {
+            showmessage(-1, $e->getMessage());
+        }
+    }
+
+
+    private static function fetchAll($obj)
+    {
         $data = [];
-        while($arr = $obj->fetchArray(SQLITE3_ASSOC)){
+        while ($arr = $obj->fetchArray(SQLITE3_ASSOC)) {
             $data[] = $arr;
         }
         return $data;

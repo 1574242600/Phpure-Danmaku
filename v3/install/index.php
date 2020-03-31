@@ -45,15 +45,13 @@ if (class_exists('SQLite3')){
 }
 //----------------------------------------------------
 $query = <<<EOF
-
 CREATE TABLE IF NOT EXISTS `danmaku_ip` (
   `ip` varchar(12) NOT NULL COMMENT '发送弹幕的IP地址',
   `c` int(1) NOT NULL DEFAULT '1' COMMENT '规定时间内的发送次数',
   `time` int(10) NOT NULL,
   PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
+/**/
 CREATE TABLE IF NOT EXISTS `danmaku_list` (
   `id` varchar(32) NOT NULL COMMENT '弹幕池id',
   `cid` int(8) NOT NULL AUTO_INCREMENT COMMENT '弹幕id',
@@ -64,8 +62,19 @@ CREATE TABLE IF NOT EXISTS `danmaku_list` (
   `time` int(10) NOT NULL,
   PRIMARY KEY (`cid`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*
+ CREATE TABLE IF NOT EXISTS `danmaku_admin` (
+ `id` int(2) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+ `pwd` char(32) NOT NULL,
+  `rand` char(5) NOT NULL,
+  `p` int(1) NOT NULL DEFAULT '1' COMMENT '权限',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO danmaku_admin VALUES (null,'admin','1b89276088e6662a573da09afbd6ad25','sewqe',1);
+*/
 EOF;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -108,29 +117,34 @@ function zq_mysql($type){
     
     if ($type == 'pdo'){
         try {
-            
+
             $sql = new PDO("mysql:host=$hostname;dbname=$db;", $username, $password);
             $sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	    $sql->exec("SET time_zone = '+08:00';");
-	    $sql->exec("SET NAMES utf8;");
-	    $sql->exec("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';");
+            $sql->exec("SET time_zone = '+08:00';");
+            $sql->exec("SET NAMES utf8;");
+            $sql->exec("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';");
             $sql->exec($query);
             $sql = null;
         } catch (PDOException $e) {
             die($e->getMessage());
         }
     }
-    
-    if ($type == 'mysqli'){
+
+    if ($type == 'mysqli') {
         $sql = new mysqli($hostname, $username, $password, $db);
-	
+
         if ($sql->connect_error) {
             die("连接失败: " . $sql->connect_error);
         }
-	$sql->set_charset('utf8');
+        $sql->set_charset('utf8');
         $sql->query("SET time_zone = '+08:00';");
-	$sql->query("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';");
-        if ($sql->query($query) !== TRUE) {
+        $sql->query("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';");
+        $query = explode('/**/', $query);
+        if ($sql->query($query[0]) !== TRUE) {
+            die("创建数据表错误: " . $sql->error);
+        }
+
+        if ($sql->query($query[1]) !== TRUE) {
             die("创建数据表错误: " . $sql->error);
         }
         $sql->close();

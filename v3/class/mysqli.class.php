@@ -76,22 +76,55 @@ class sql {
     public static function 更新_发送弹幕次数($ip,$time = 'time'){
         try {
             $query = "UPDATE danmaku_ip SET c=c+1,time=$time WHERE ip = ?";
-            if (is_int($time)) $query = "UPDATE danmaku_ip SET c=1,time=$time WHERE ip = ?"; 
+            if (is_int($time)) $query = "UPDATE danmaku_ip SET c=1,time=$time WHERE ip = ?";
             $stmt = self::$sql->prepare($query);
             $stmt->bind_param('s', $ip);
-            if ($stmt->execute() == false){
+            if ($stmt->execute() == false) {
                 throw new Exception($stmt->error_list);
             }
             $stmt->close();
         } catch (Exception $e) {
-            showmessage(-1,$e->getMessage());
+            showmessage(-1, $e->getMessage());
         }
     }
-    
-    private static function fetchAll($obj){
+
+    public static function 查询_管理员($id)
+    {
+        try {
+            $stmt = self::$sql->prepare("SELECT * FROM danmaku_admin WHERE id = ?");
+            $stmt->bind_param('s', $id);
+            if ($stmt->execute() == false) {
+                throw new Exception($stmt->error_list);
+            }
+            $data = self::fetchAll($stmt->get_result());
+            $stmt->close();
+            return $data;
+        } catch (Exception $e) {
+            showmessage(-1, $e->getMessage());
+        }
+    }
+
+    public static function 查询_管理员登录($name)
+    {
+        try {
+            $stmt = self::$sql->prepare("SELECT * FROM danmaku_admin WHERE name = ? LIMIT 1");
+            $stmt->bind_param('s', $name);
+            if ($stmt->execute() == false) {
+                throw new Exception($stmt->error_list);
+            }
+            $data = self::fetchAll($stmt->get_result());
+            $stmt->close();
+            return $data;
+        } catch (Exception $e) {
+            showmessage(-1, $e->getMessage());
+        }
+    }
+
+    private static function fetchAll($obj)
+    {
         $data = [];
         if ($obj->num_rows > 0) {
-            while($arr = $obj->fetch_assoc()){
+            while ($arr = $obj->fetch_assoc()) {
                 $data[] = $arr;
             }
         }

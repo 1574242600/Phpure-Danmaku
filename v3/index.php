@@ -1,6 +1,6 @@
 <?php
 //ini_set("display_errors", "On");
-//error_reporting(E_ALL);
+error_reporting(0);
 
 require_once('init.php');
 require_once('class/danmu.class.php');
@@ -29,10 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
            $lock = 0;
         }
     }
-    
-    
 
-    
+
     if($lock === 0){
         $d->添加弹幕($d_data);
         showmessage(0,true);

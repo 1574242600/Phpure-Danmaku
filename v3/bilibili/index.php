@@ -6,7 +6,7 @@
 
 header("Content-Type:application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
-
+if(!empty($_GET['bv'])) $_GET['av'] = bvDec($_GET['bv']);
 $cid = $_GET['cid'] ?: 0;
 $av = $_GET['av'] ?: 0;
 $p = $_GET['p'] ?: 1;
@@ -89,3 +89,20 @@ function get_cid($av, $p)
     }
     return $data['data'][$p - 1]['cid'];
 }
+
+function bvDec($x)
+{
+    $table = 'fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF';
+    $tr = [];
+    for ($i = 0; $i !== 58; $i++){
+	    $tr[$table[$i]] = $i;
+    }
+    $s = [11,10,3,8,4,6];
+    $add = 8728348608;
+    $r = 0;
+	for ($i = 0; $i !== 6; $i++){
+		$r += $tr[$x[$s[$i]]]*pow(58,$i);
+    }
+	return ($r-$add)^177451812;
+}
+   

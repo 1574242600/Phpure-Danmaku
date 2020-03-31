@@ -33,7 +33,7 @@ html:[http://xg.nworm.cf/my/bili-gat/video.php?sid=2586](http://xg.nworm.cf/my/b
 
 ## 注意事项
 1. 用了cdn，请一定要把config.inc.php中的is_cdn改为1
-2. 如果要限制跨域，请修改config.inc.php的允许url,如果此项为空，则不限制跨的域
+2. 如果要限制跨域，请修改config.inc.php的允许url,如果此项为空，则不限制
 3. 发送频率默认限制为60秒内5条 ，如果要修改，算了，改哪个文件都猜的到了
 
 

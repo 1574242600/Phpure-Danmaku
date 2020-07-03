@@ -6,7 +6,7 @@
 (因为某些虚拟主机不支持伪静态，所以我直接用的目录)
 
 ## 安装要求
-php 版本 > 5.3  
+php 版本 >= 5.4  
 
 pdo 或 sqlite3 或 mysqli 模块
 如果要用 bilibili 弹幕 还需curl模块

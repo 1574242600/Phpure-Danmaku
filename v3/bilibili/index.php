@@ -6,28 +6,26 @@ error_reporting(0);
 
 header("Content-Type:application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
+
 if(!empty($_GET['bv'])) $_GET['av'] = bvDec($_GET['bv']);
-$cid = $_GET['cid'] ?: 0;
-$av = $_GET['av'] ?: 0;
-$p = $_GET['p'] ?: 1;
-preg_match("/^[0-9]+$/", $av) ?: $av = 0;
-preg_match("/^[0-9]+$/", $p) ?: $p = 1;
-preg_match("/^[0-9]+$/", $cid) ?: $cid = 0;
+
+$cid = is_numeric($_GET['cid']) ? $_GET['cid'] : 0;
+$av = is_numeric($_GET['av']) ? $_GET['av'] : 0;
+$p = is_numeric($_GET['p']) ? $_GET['p'] : 1;
 
 if ($cid > 0) {
-    $xml = curl_get('https://api.bilibili.com/x/v1/dm/list.so?oid=' . $cid);
+    $xml = get('https://api.bilibili.com/x/v1/dm/list.so?oid=' . $cid);
     echo xml_json($xml);
 } elseif ($av > 0 and $cid <= 0) {
     $cid = get_cid($av, $p);
-    $xml = curl_get('https://api.bilibili.com/x/v1/dm/list.so?oid=' . $cid);
+    $xml = get('https://api.bilibili.com/x/v1/dm/list.so?oid=' . $cid);
     echo xml_json($xml);
 } else {
-    echo '{"code":1,"mes":"参数错误"}';
+    echo '{"code":1,"data":"参数错误"}';
 }
 
 
-
-function curl_get($url, $gzip=1)
+function get($url, $gzip=1)
 {
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -52,10 +50,10 @@ function xml_json($xml)
             $data['d'][$k][] = explode(",", (string)$_v);
         }
     }
+
     $data = $data['d'];
     $json = ['code' => 0, 'data' => []];
     foreach ($data as $k => $v) {
-        // 请不要随意调换下列数组赋值顺序
         $json['data'][$k][] = (float)$v[1][0];  //弹幕出现时间(s)
         //弹幕样式
 
@@ -83,9 +81,9 @@ function xml_json($xml)
 
 function get_cid($av, $p)
 {
-    $data = json_decode(curl_get('https://api.bilibili.com/x/player/pagelist?aid=' . $av), true);
+    $data = json_decode(get('https://api.bilibili.com/x/player/pagelist?aid=' . $av), true);
     if (empty($data['data'][$p - 1]['cid'])) {
-        die('{"code":1,"mes":"参数错误"}');
+        die('{"code":1,"data":"参数错误"}');
     }
     return $data['data'][$p - 1]['cid'];
 }

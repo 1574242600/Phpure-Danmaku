@@ -58,7 +58,7 @@ class Danmaku
 
         if (empty($count)){
             DB::插入_发送弹幕次数($ip);
-            $lock = 0;
+            $lock = false;
 
         } else {
             $count = $count[0];

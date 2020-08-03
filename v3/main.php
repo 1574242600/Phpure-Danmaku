@@ -19,14 +19,14 @@ class DMain {
         } catch (DBException $e) {
             $this->errorResponse = [
                 'code'=> 500,
-                'data'=> 'DBException: '. $e->getMessage()
+                'msg'=> 'DBException: '. $e->getMessage()
             ];
 
             return $this->returnResponse();
         } catch (PDOException $e) {
             $this->errorResponse = [
                 'code'=> 500,
-                'data'=> 'DBException: '. $e->getMessage()
+                'msg'=> 'DBException: '. $e->getMessage()
             ];
             
             return $this->returnResponse();
@@ -94,7 +94,7 @@ class Danmaku
         if($inspection($data) === false){
             return DMain::$errorResponse = [
                 'code'=> 400, 
-                'data' => 'Param error'
+                'msg' => 'Param error'
             ];
         } else {
             DB::插入_弹幕($data);

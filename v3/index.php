@@ -16,7 +16,7 @@ $main->addMethod('GET',function($setResponse){
     if(empty($_GET['id']) or !is_numeric($_GET['id'])) {
         return DMain::$errorResponse = [
             'code'=> 400, 
-            'data' => 'Param error'
+            'msg' => 'Param error'
         ];
     }
     
@@ -48,14 +48,14 @@ $main->addMethod('POST', function($setResponse){
 
         return $setResponse([
             'code'=> 0,
-            'data'=> true
+            'msg'=> true
         ]);
 
     } else {
 
         return $setResponse([
             'code'=> 400,
-            'data'=> '你tm发送的太频繁了,请问你单身几年了？'
+            'msg'=> '你tm发送的太频繁了,请问你单身几年了？'
         ]);
     }
 
@@ -79,7 +79,7 @@ function topException($exception)
     die(
         json_encode([
             'code'=> 500,
-            'data'=> 'Uncaught Exception: '. $exception->getMessage()
+            'msg'=> 'Uncaught Exception: '. $exception->getMessage()
         ])
     );
 
